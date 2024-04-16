@@ -6,9 +6,9 @@ use App\Models\Image;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ImagesControllerTest extends TestCase
+class ListImagesTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, ImageStructureTrait;
 
     /**
      * A basic feature test example.
@@ -17,9 +17,14 @@ class ImagesControllerTest extends TestCase
     {
         Image::factory(10)->create();
 
-        $this->getJson('/api/images')
+        $this->getJson(route('api.images.index'))
             ->assertOk()
-            ->assertJsonCount(10);
+            ->assertJsonCount(10, 'data')
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => $this->imageStructure()
+                ]
+            ]);
 
         $this->assertDatabaseCount('images', 10);
     }

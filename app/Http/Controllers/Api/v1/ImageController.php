@@ -3,13 +3,25 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Image\ImageResource;
 use App\Models\Image;
-use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
+    /**
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
-        return Image::all();
+        return ImageResource::collection(Image::all());
+    }
+
+    /**
+     * @param Image $image
+     * @return ImageResource
+     */
+    public function show(Image $image)
+    {
+        return new ImageResource($image);
     }
 }
