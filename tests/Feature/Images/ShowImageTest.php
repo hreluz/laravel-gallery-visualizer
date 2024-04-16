@@ -34,4 +34,10 @@ class ShowImageTest extends TestCase
 
         $this->assertDatabaseCount('images', 1);
     }
+
+    public function test_it_shows_404_error(): void
+    {
+        $this->getJson(route('api.images.show', 123456))
+            ->assertStatus(404);
+    }
 }

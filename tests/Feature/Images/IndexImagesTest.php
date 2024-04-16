@@ -6,16 +6,16 @@ use App\Models\Image;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ListImagesTest extends TestCase
+class IndexImagesTest extends TestCase
 {
     use RefreshDatabase, ImageStructureTrait;
 
     /**
      * A basic feature test example.
      */
-    public function test_get_images()
+    public function test_index_images()
     {
-        Image::factory(10)->create();
+        Image::factory(15)->create();
 
         $this->getJson(route('api.images.index'))
             ->assertOk()
@@ -26,6 +26,6 @@ class ListImagesTest extends TestCase
                 ]
             ]);
 
-        $this->assertDatabaseCount('images', 10);
+        $this->assertDatabaseCount('images', 15);
     }
 }

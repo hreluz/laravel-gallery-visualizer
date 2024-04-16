@@ -13,7 +13,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        return ImageResource::collection(Image::all());
+        return ImageResource::collection(Image::paginate(10));
     }
 
     /**
