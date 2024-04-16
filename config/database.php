@@ -59,6 +59,12 @@ return [
             ]) : [],
         ],
 
+        'testing' => [
+            'driver'    => 'sqlite',
+            'database'  => ':memory:',
+            'prefix'    => ''
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
