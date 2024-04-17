@@ -10,3 +10,4 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/images', [ImageController::class, 'index'])->name('api.images.index');
 Route::get('/images/{image}', [ImageController::class, 'show'])->name('api.images.show');
+Route::post('/images', [ImageController::class, 'store'])->name('api.images.store');

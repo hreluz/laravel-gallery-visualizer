@@ -17,7 +17,7 @@ class ShowImageTest extends TestCase
     {
         $image = Image::factory()->create([
             'name' => 'image-1',
-            'path' => 'https://somepath.com',
+            'path' => '1/image-1.jpg',
             'watched' => true
         ]);
 
@@ -28,7 +28,7 @@ class ShowImageTest extends TestCase
             ])
             ->assertJsonFragment([
                 'name' => 'image-1',
-                'path' => 'https://somepath.com',
+                'url' => $image->url,
                 'watched' => true
             ]);
 

@@ -10,7 +10,7 @@ trait ImageStructureTrait
             'id',
             'name',
             'watched',
-            'path'
+            'url'
         ];
     }
 }
