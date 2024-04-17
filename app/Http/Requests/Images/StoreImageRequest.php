@@ -23,7 +23,7 @@ class StoreImageRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'image' => ['required', 'file', 'extensions:jpg,png']
+            'image' => ['required', 'file', 'extensions:jpg,png', 'max:'.config('image.image_size_max_kb')]
         ];
     }
 }
