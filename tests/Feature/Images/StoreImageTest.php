@@ -5,6 +5,7 @@ namespace Tests\Feature\Images;
 use App\Models\Image;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class StoreImageTest extends TestCase
@@ -16,7 +17,11 @@ class StoreImageTest extends TestCase
         $this->postJson(route('api.images.store'), [
             'name' => 'a great image',
             'image' => UploadedFile::fake()->image('avatar.jpg')->size(config('image.image_size_max_kb'))
-        ])->assertStatus(201);
+        ])->assertStatus(201)
+            ->assertJson(fn (AssertableJson $json) =>
+                $json->where('data.name', 'a great image')
+                    ->whereNot('data.watched', true)
+            );
 
         $this->assertDatabaseCount('images', 1);
         $image = Image::first();
