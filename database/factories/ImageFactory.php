@@ -18,7 +18,7 @@ class ImageFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'path' => fake()->url(),
+            'filename' => fake()->uuid(). fake()->randomElement(['.jpg', '.png', '.jpeg']),
             'watched' => rand(0, 1) === 0,
         ];
     }

@@ -10,7 +10,7 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'path'];
+    protected $fillable = ['name', 'filename'];
 
     protected $casts = [
         'watched' => 'boolean'
@@ -18,6 +18,16 @@ class Image extends Model
 
     public function getUrlAttribute()
     {
-        return Storage::disk('images_storage')->url($this->path);
+        return Storage::disk('images_storage')->url($this->id . '/' . $this->filename);
+    }
+
+    public function getImageFullPathAttribute()
+    {
+        return Storage::disk('images_storage')->path($this->id . '/'. $this->filename);
+    }
+
+    public function getThumbnailImageFullPathAttribute()
+    {
+        return Storage::disk('images_storage')->path($this->id . '/thumbnail-'. $this->filename);
     }
 }

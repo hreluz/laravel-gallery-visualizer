@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Images\StoreImageRequest;
 use App\Http\Resources\Image\ImageResource;
 use App\Models\Image;
+use Intervention\Image\ImageManager;
+
 
 class ImageController extends Controller
 {
@@ -39,10 +41,17 @@ class ImageController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalName();
+            $filename = uniqid().$extension;
+            $file->storeAs($image->id , $filename, 'images_storage');
 
             $image->update([
-                'path' => $file->storeAs($image->id , uniqid().$extension, 'images_storage')
+                'filename' => $filename
             ]);
+
+            ImageManager::imagick()
+                ->read($file)
+                ->resize(100, 100)
+                ->save($image->thumbnail_full_path);
         }
 
         return new ImageResource($image);

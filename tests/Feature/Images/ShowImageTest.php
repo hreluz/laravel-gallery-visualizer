@@ -10,14 +10,11 @@ class ShowImageTest extends TestCase
 {
     use RefreshDatabase, ImageStructureTrait;
 
-    /**
-     * A basic feature test example.
-     */
     public function test_it_shows_image(): void
     {
         $image = Image::factory()->create([
             'name' => 'image-1',
-            'path' => '1/image-1.jpg',
+            'filename' => 'image-1.jpg',
             'watched' => true
         ]);
 
