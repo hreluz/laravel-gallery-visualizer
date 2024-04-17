@@ -56,4 +56,14 @@ class ImageController extends Controller
 
         return new ImageResource($image);
     }
+
+    /**
+     * @param Image $image
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Image $image)
+    {
+        $image->delete();
+        return response()->noContent();
+    }
 }

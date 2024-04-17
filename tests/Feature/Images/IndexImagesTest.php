@@ -10,9 +10,6 @@ class IndexImagesTest extends TestCase
 {
     use RefreshDatabase, ImageStructureTrait;
 
-    /**
-     * A basic feature test example.
-     */
     public function test_index_images()
     {
         Image::factory(15)->create();
