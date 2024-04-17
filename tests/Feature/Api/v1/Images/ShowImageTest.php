@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature\Images;
+namespace Tests\Feature\Api\v1\Images;
 
 use App\Models\Image;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Tests\Feature\Api\v1\ApiV1TestCase;
 
-class ShowImageTest extends TestCase
+class ShowImageTest extends ApiV1TestCase
 {
     use RefreshDatabase, ImageStructureTrait;
 
@@ -18,7 +18,7 @@ class ShowImageTest extends TestCase
             'watched' => true
         ]);
 
-        $this->getJson(route('api.images.show', $image->id))
+        $this->getJson($this->getRoute('images.show', $image->id))
             ->assertOk()
             ->assertJsonStructure([
                 'data' => $this->imageStructure()
@@ -34,7 +34,7 @@ class ShowImageTest extends TestCase
 
     public function test_it_shows_404_error(): void
     {
-        $this->getJson(route('api.images.show', 123456))
+        $this->getJson($this->getRoute('images.show', 123456))
             ->assertStatus(404);
     }
 }

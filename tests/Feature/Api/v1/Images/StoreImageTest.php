@@ -1,20 +1,20 @@
 <?php
 
-namespace Tests\Feature\Images;
+namespace Tests\Feature\Api\v1\Images;
 
 use App\Models\Image;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Testing\Fluent\AssertableJson;
-use Tests\TestCase;
+use Tests\Feature\Api\v1\ApiV1TestCase;
 
-class StoreImageTest extends TestCase
+class StoreImageTest extends ApiV1TestCase
 {
     public function test_stores_image(): void
     {
         Storage::fake('images_storage');
 
-        $this->postJson(route('api.images.store'), [
+        $this->postJson($this->getRoute('images.store'), [
             'name' => 'a great image',
             'image' => UploadedFile::fake()->image('avatar.jpg')->size(config('image.image_size_max_kb'))
         ])->assertStatus(201)
@@ -33,7 +33,7 @@ class StoreImageTest extends TestCase
     {
         Storage::fake('images_storage');
 
-        $this->postJson(route('api.images.store'), [
+        $this->postJson($this->getRoute('images.store'), [
             'name' => 'a great image',
             'image' => UploadedFile::fake()
                 ->image('avatar.jpg')
@@ -45,7 +45,7 @@ class StoreImageTest extends TestCase
     {
         Storage::fake('images_storage');
 
-        $this->postJson(route('api.images.store'), [
+        $this->postJson($this->getRoute('images.store'), [
             'name' => 'a great image',
             'image' => UploadedFile::fake()
                 ->image('avatar.jpg')

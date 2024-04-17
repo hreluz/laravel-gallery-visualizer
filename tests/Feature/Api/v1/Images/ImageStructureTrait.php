@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Images;
+namespace Tests\Feature\Api\v1\Images;
 
 trait ImageStructureTrait
 {

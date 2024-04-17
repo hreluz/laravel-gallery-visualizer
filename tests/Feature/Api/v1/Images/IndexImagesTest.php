@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature\Images;
+namespace Tests\Feature\Api\v1\Images;
 
 use App\Models\Image;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Tests\Feature\Api\v1\ApiV1TestCase;
 
-class IndexImagesTest extends TestCase
+class IndexImagesTest extends ApiV1TestCase
 {
     use RefreshDatabase, ImageStructureTrait;
 
@@ -14,7 +14,7 @@ class IndexImagesTest extends TestCase
     {
         Image::factory(15)->create();
 
-        $this->getJson(route('api.images.index'))
+        $this->getJson($this->getRoute('images.index'))
             ->assertOk()
             ->assertJsonCount(10, 'data')
             ->assertJsonStructure([
