@@ -13,7 +13,7 @@ class LoginControllerTest extends ApiTestCase
     {
         $user = User::factory()->create();
 
-        $this->postJson(route('api.auth.login'), [
+        $this->postJson($this->getRoute('auth.login'), [
             'email' => $user->email,
             'password' => 'password'
         ])->assertOk()
@@ -28,7 +28,7 @@ class LoginControllerTest extends ApiTestCase
     public function test_user_cannot_login_with_incorrect_password()
     {
         $user = User::factory()->create();
-        $this->postJson(route('api.auth.login'), [
+        $this->postJson($this->getRoute('auth.login'), [
             'email' => $user->email,
             'password' => 'password incorrect'
         ])->assertJsonValidationErrors([

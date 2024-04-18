@@ -7,6 +7,12 @@ use Tests\Feature\Api\v1\ApiV1TestCase;
 
 class DestroyImageTest extends ApiV1TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->actAs();
+    }
+
     public function test_can_destroy_an_image_record(): void
     {
         Image::factory(2)->create();

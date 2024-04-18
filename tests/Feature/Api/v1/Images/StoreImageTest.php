@@ -10,6 +10,12 @@ use Tests\Feature\Api\v1\ApiV1TestCase;
 
 class StoreImageTest extends ApiV1TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->actAs();
+    }
+
     public function test_stores_image(): void
     {
         Storage::fake('images_storage');

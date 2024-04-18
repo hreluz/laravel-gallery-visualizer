@@ -9,6 +9,11 @@ class ShowImageTest extends ApiV1TestCase
 {
     use ImageStructureTrait;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function test_it_shows_image(): void
     {
         $image = Image::factory()->create([

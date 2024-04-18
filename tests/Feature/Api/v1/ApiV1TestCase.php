@@ -2,14 +2,20 @@
 
 namespace Tests\Feature\Api\v1;
 
+use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable as UserContract;
+use Laravel\Sanctum\Sanctum;
 use Tests\ApiTestCase;
 
 class ApiV1TestCase extends ApiTestCase
 {
-    public const API_ROUTE = 'api.v1.';
-
-    public function getRoute(string $route, $param = null): string
+    public function getPrefixRoute(): string
     {
-        return route(self::API_ROUTE . $route, $param);
+        return parent::getPrefixRoute() . 'v1.';
+    }
+
+    public function actAs(UserContract $user = null)
+    {
+        Sanctum::actingAs($user ?? User::factory()->create());
     }
 }
