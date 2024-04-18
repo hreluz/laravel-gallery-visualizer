@@ -28,12 +28,12 @@ class RegisterControllerTest extends ApiTestCase
 
     public function test_it_only_allow_unique_emails_when_registers()
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'email' => 'batman@gmail.com'
         ]);
 
         $this->postJson(route('api.auth.register'), [
-            'email' => 'batman@gmail.com',
+            'email' => $user->email,
         ])->assertJsonValidationErrors('email')->assertUnprocessable();
     }
 }
