@@ -2,12 +2,23 @@
 
 namespace Tests;
 
+use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
+use Laravel\Sanctum\Sanctum;
 
 class ApiTestCase extends TestCase
 {
     use RefreshDatabase;
+
+    public User $user ;
+
+    public function actAs(UserContract $user = null)
+    {
+        $this->user = $user ?? User::factory()->create();
+        Sanctum::actingAs($this->user);
+    }
 
     public function getPrefixRoute(): string
     {
