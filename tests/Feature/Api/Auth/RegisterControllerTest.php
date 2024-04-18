@@ -1,0 +1,39 @@
+<?php
+
+namespace Tests\Feature\Api\Auth;
+
+use App\Models\User;
+use Tests\ApiTestCase;
+
+class RegisterControllerTest extends ApiTestCase
+{
+    use AuthUserStructureTrait;
+
+    public function test_it_can_register_user()
+    {
+        $this->postJson(route('api.auth.register'), [
+            'name' => 'Bruce',
+            'email' => 'batman@gmail.com',
+            'password' => '123456',
+            'password_confirmation' => '123456'
+        ])->assertJsonStructure([
+            'data' => $this->authUserStructure()
+        ])->assertSuccessful();
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'Bruce',
+            'email' => 'batman@gmail.com',
+        ]);
+    }
+
+    public function test_it_only_allow_unique_emails_when_registers()
+    {
+        User::factory()->create([
+            'email' => 'batman@gmail.com'
+        ]);
+
+        $this->postJson(route('api.auth.register'), [
+            'email' => 'batman@gmail.com',
+        ])->assertJsonValidationErrors('email')->assertUnprocessable();
+    }
+}

@@ -3,12 +3,11 @@
 namespace Tests\Feature\Api\v1\Images;
 
 use App\Models\Image;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Feature\Api\v1\ApiV1TestCase;
 
 class IndexImagesTest extends ApiV1TestCase
 {
-    use RefreshDatabase, ImageStructureTrait;
+    use ImageStructureTrait;
 
     public function test_index_images()
     {
