@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Auth\AuthUserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,17 +12,11 @@ use Illuminate\Support\Facades\Hash;
 class RegisterController extends Controller
 {
     /**
-     * @param Request $request
+     * @param RegisterRequest $request
      * @return AuthUserResource
      */
-    public function __invoke(Request $request): AuthUserResource
+    public function __invoke(RegisterRequest $request): AuthUserResource
     {
-        $request->validate([
-            'name' => ['required'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'confirmed']
-        ]);
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,

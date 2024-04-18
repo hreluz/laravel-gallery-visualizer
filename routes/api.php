@@ -1,11 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Auth\{
-    LoginController,
-    ProfileController,
-    RegisterController
-};
+use App\Http\Controllers\Api\Auth\{LoginController, ProfileController, RegisterController, UpdatePasswordController};
 
 Route::group(['as' => 'api.'], function ()  {
 
@@ -15,6 +11,7 @@ Route::group(['as' => 'api.'], function ()  {
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('auth', [ProfileController::class, 'show'])->name('auth.show');
         Route::put('auth', [ProfileController::class, 'update'])->name('auth.update');
+        Route::put('auth/password', UpdatePasswordController::class)->name('auth.update_password');
     });
 
     Route::group(['prefix' => 'v1' , 'as' => 'v1.'], function(){

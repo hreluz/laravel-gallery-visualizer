@@ -14,8 +14,8 @@ class RegisterControllerTest extends ApiTestCase
         $this->postJson(route('api.auth.register'), [
             'name' => 'Bruce',
             'email' => 'batman@gmail.com',
-            'password' => '123456',
-            'password_confirmation' => '123456'
+            'password' => 'a complex P#ssword2',
+            'password_confirmation' => 'a complex P#ssword2'
         ])->assertJsonStructure([
             'data' => $this->authUserStructure()
         ])->assertSuccessful();
